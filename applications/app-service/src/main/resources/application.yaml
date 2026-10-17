@@ -1,14 +1,39 @@
-##Spring Configuration
 server:
-  port: 8080
+  port: ${PORT:8080}
 spring:
   application:
-    name: AIFinance
-  devtools:
-    add-properties: false
-  h2:
-    console:
-      enabled: true
-      path: /h2
-  profiles:
-    include:
+    name: "AIFinance"
+  webflux:
+    base-path: ${CONTEXT_PATH}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:8080"
+
+postgres:
+  r2dbc:
+    host: ${R2DBC_HOST:localhost}
+    port: ${R2DBC_PORT:5432}
+    database: ${R2DBC_DATABASE:mydb}
+    schema: ${R2DBC_SCHEMA:public}
+    username: ${R2DBC_USERNAME:myuser}
+    password: ${R2DBC_PASSWORD:mypass}
+    poolSize: ${R2DBC_POOLSIZE:5}
+    maxSize: ${R2DBC_MAXSIZE:20}
+    maxIdleTime: ${R2DBC_MAXIDLETIME:10}
+    validationQuery: ${R2DBC_VALIDATIONQUERY:SELECT 1}
+
+logging:
+  level:
+    reactor.netty: DEBUG
+    org.springframework.data.r2dbc: DEBUG
+    io.r2dbc.postgresql.QUERY: DEBUG
+    root: INFO
