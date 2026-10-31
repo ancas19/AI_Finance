@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.r2dbc.connection.R2dbcTransactionManager;
 import org.springframework.r2dbc.core.DatabaseClient;
+import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.reactive.TransactionalOperator;
 import org.springframework.util.StringUtils;
 
 import java.time.Duration;
@@ -60,6 +62,11 @@ public class PostgreSQLConnection {
     @Bean("r2dbcTransactionManager")
     public R2dbcTransactionManager transactionManager(ConnectionPool connectionPool) {
         return new R2dbcTransactionManager(connectionPool);
+    }
+
+    @Bean
+    public TransactionalOperator transactionalOperator(ReactiveTransactionManager r2dbcTransactionManager) {
+        return TransactionalOperator.create(r2dbcTransactionManager);
     }
 
 

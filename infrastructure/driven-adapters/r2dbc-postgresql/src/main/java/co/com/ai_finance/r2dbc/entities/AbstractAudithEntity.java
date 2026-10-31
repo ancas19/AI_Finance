@@ -19,20 +19,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class AbstractAuditoriaEntity {
+public class AbstractAudithEntity {
     @CreatedBy
-    @Column("u_creacion")
-    private String usuarioCreacion;
+    @Column("created_by")
+    private String created_by;
 
     @LastModifiedBy
-    @Column("u_actualizacion")
-    private String usuarioActualizacion;
+    @Column("updated_by")
+    private String updated_by;
 
     @CreatedDate
-    @Column("f_creacion")
-    private LocalDateTime fechaCreacion;
+    @Column("created_at")
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column("f_actualizacion")
-    private LocalDateTime fechaActualizacion;
+    @Column("updated_at")
+    private LocalDateTime updatedAt;
 }
